@@ -82,3 +82,15 @@
     width: 50px;
     padding-top: 8px;
 }
+
+.btn {
+    margin: 5px;
+    height: 27px;
+    background-color: lightblue;
+    cursor: pointer;
+}
+
+.search-bar {
+    width: 25%;
+    height: 20px;
+}
