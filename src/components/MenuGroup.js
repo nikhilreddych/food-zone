@@ -1,7 +1,6 @@
 import MenuCard from "./MenuCard";
 
 const MenuGroup = ({group}) => {
-    console.log(group);
     return (
         <div className="menu-group">
             <h2>{group.title} ({group.itemCards.length})</h2>

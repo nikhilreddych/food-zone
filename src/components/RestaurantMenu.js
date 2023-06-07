@@ -19,8 +19,6 @@ const RestaurantMenu = () => {
         const menuData = await fetch(RES_MENU_URL + resId);
         const json = await menuData.json();
 
-        console.log(json);
-
         const menuGroups = json.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards;
 
         setFilteredMenuGroups(menuGroups);
@@ -37,8 +35,6 @@ const RestaurantMenu = () => {
     const menuGroups = resDetails?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards;
 
     const onVegOnlyChange = (checked) => {
-        console.log(checked);
-
         if(checked) {
             let filteredGroups = menuGroups.slice();
             filteredGroups = filteredGroups.reduce((prev, current) => {
