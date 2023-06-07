@@ -31,6 +31,7 @@
     margin: 10px;
     padding: 10px;
     cursor: pointer;
+    height: 90%;
 }
 
 .res-card:hover {
@@ -105,4 +106,51 @@
     width: 200px;
     height: 350px;
     background-color: #f0f0f0;
+}
+
+.res-details {
+    width: 70%;
+    padding-left: 15%;
+}
+
+.res-info-card {
+    display: flex;
+    justify-content: space-between;
+}
+
+.res-rating {
+    border: 1px solid #f0f0f0;
+    height: 80%;
+    margin-top: 2%;
+    border-radius: 15px;
+    padding: 0 5px;
+    text-align: center;
+}
+
+.horizontal-line {
+    border: 1px solid #f0f0f0;
+}
+
+.dotted-line {
+    border: 1px dashed #f0f0f0;
+}
+
+.menu-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.item-image {
+    margin: 5px;
+}
+
+.item-logo {
+    width: 118px;
+    height: 96px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.menu-card {
+    min-height: 120px;
 }
