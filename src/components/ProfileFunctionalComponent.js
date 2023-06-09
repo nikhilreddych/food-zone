@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import useFetch from "../hooks/useFetch";
 
 const ProfileFunctionalComponent = () => {
     const [userInfo, setUserInfo] = useState({});
@@ -16,8 +17,7 @@ const ProfileFunctionalComponent = () => {
     }, []);
 
     const fetchUser = async () => {
-        const data = await fetch("https://api.github.com/users/nikhilreddych");
-        const json = await data.json();
+        const json = await useFetch("https://api.github.com/users/nikhilreddych");
 
         setUserInfo(json);
     }

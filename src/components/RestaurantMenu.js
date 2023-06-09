@@ -1,30 +1,13 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Shimmer from "./Shimmer";
-import { RES_MENU_URL } from "../utils/constants";
 import MenuGroup from "./MenuGroup";
 import ToggleSwitch from "./ToggleSwitch/ToggleSwitch";
+import useRestaurantMenu from "../hooks/useRestaurentMenu";
 
 const RestaurantMenu = () => {
-    const [resDetails, setResDetails] = useState(null);
-    const [filteredMenuGroups, setFilteredMenuGroups] = useState([]);
-
     const { resId } = useParams();
 
-    useEffect(() => {
-        fetchMenu();
-    }, []);
-
-    const fetchMenu = async () => {
-        const menuData = await fetch(RES_MENU_URL + resId);
-        const json = await menuData.json();
-
-        const menuGroups = json.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards;
-
-        setFilteredMenuGroups(menuGroups);
-
-        setResDetails(json.data);
-    }
+    const [resDetails, filteredMenuGroups, setFilteredMenuGroups] = useRestaurantMenu(resId);
 
     if(resDetails === null) {
         return <Shimmer />

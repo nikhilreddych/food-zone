@@ -1,33 +1,24 @@
 import ResaurentCard from "./RestaurantCard";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import useRestaurants from "../hooks/useRestaurants";
+import useOnline from "../hooks/useOnline";
 
 const Body = () => {
-  const [listOfRestaurents, setListOfRestaurents] = useState([]);
-  const [filteredRestaurents, setFilteredRestaurents] = useState([]);
   const [searchTxt, setSearchTxt] = useState("");
   const [searchCounter, setSearchCounter] = useState(0);
+  const [listOfRestaurents, filteredRestaurents, setFilteredRestaurents] = useRestaurants();
 
+  const isInternetConnected = useOnline();
+
+  if(!isInternetConnected) {
+    return <h1>Opps...!! Looks like you're offline. Check your internet connection.</h1>
+  }
+  
   const linkStyle = {
     textDecoration: "none",
     color: "black",
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING"
-    );
-    const json = await data.json();
-
-    const restaurantsList = json?.data?.cards[2]?.data?.data?.cards;
-
-    setListOfRestaurents(restaurantsList);
-    setFilteredRestaurents(restaurantsList);
   };
 
   return listOfRestaurents.length === 0 ? (

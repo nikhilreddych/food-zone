@@ -1,4 +1,5 @@
 import React from "react";
+import useFetch from "../hooks/useFetch";
 
 class Profile extends React.Component {
     constructor(props) {
@@ -14,8 +15,7 @@ class Profile extends React.Component {
 
     async componentDidMount() {
         console.log("API call start of componentDidMount of " + this.props.name);
-        const data = await fetch("https://api.github.com/users/nikhilreddych");
-        const json = await data.json();
+        const json = await useFetch("https://api.github.com/users/nikhilreddych");
 
         console.log("API Call done of componentDidMount of " + this.props.name);
         this.setState({
