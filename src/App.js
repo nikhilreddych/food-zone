@@ -1,13 +1,16 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
 import Footer from "./components/Footer";
-import About from "./components/About";
 import Contact from "./components/Contact";
 import Error from "./components/Error";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import RestaurantMenu from "./components/RestaurantMenu";
+import Shimmer from "./components/Shimmer";
+
+const InstaMart = lazy(() => import("./components/InstaMart"));
+const About = lazy(() => import("./components/About"));
 
 const AppLayout = () => {
   return (
@@ -30,7 +33,7 @@ const routerConfig = createBrowserRouter([
       },
       {
         path: "/about",
-        element: <About />
+        element: <Suspense fallback={<h2>Loading...</h2>}><About /></Suspense>
       },
       {
         path: "/contact",
@@ -39,6 +42,10 @@ const routerConfig = createBrowserRouter([
       {
         path: "/restaurants/:resId",
         element: <RestaurantMenu />
+      },
+      {
+        path: "/instamart",
+        element: <InstaMart /> //ideally this should throw error and not load as not wrapped with Suspense. But it is loading. Strange !! Why?
       }
     ],
     errorElement: <Error />
