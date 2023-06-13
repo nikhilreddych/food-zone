@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import UserContext from "../utils/UserContext";
 
 const Header = () => {
+  const { user } = useContext(UserContext);
   return (
     <div className="flex justify-between shadow-xl bg-gray-100">
       <div className="logo-container">
@@ -9,6 +12,9 @@ const Header = () => {
             className="h-24 p-2 m-2"
             src={require("/public/images/logo.png")}></img>
         </Link>
+      </div>
+      <div className="font-bold text-lg text-gray-500 mt-11">
+        Welcome back, {user.name}
       </div>
       <div className="px-2 mx-2">
         <ul className="flex py-11">

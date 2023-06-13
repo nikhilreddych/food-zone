@@ -66,7 +66,7 @@ const RestaurantMenu = () => {
   };
 
   return (
-    <div className="w-2/3 pl-[16.67%] mt-8">
+    <div className="w-4/5 pl-[16.67%] mt-8">
       <div className="flex justify-between">
         <div>
           <div className="font-bold text-lg">{name}</div>
@@ -89,10 +89,10 @@ const RestaurantMenu = () => {
         </div>
       </div>
       <div className="border-[1px] border-dashed border-gray-200 my-3"></div>
-      <div className="flex w-1/3 justify-between">
+      <div className="flex w-1/4 justify-between mx-3">
         <div className="flex">
           <CgSandClock className="h-6 w-6" />
-          <div className="font-bold text-sm ml-1 pt-0.5">{sla.slaString}</div>
+          <div className="font-bold text-sm pt-0.5">{sla.slaString}</div>
         </div>
         <div className="flex">
           <HiOutlineCurrencyRupee className="h-6 w-6" />
@@ -101,7 +101,7 @@ const RestaurantMenu = () => {
           </div>
         </div>
       </div>
-      <div className="my-3">
+      <div className="my-3 mx-4">
         <ToggleSwitch
           label="Veg Only"
           onToggleChange={onVegOnlyChange}></ToggleSwitch>
@@ -114,9 +114,12 @@ const RestaurantMenu = () => {
             group.card.card.itemCards.length > 0
           ) {
             return (
-              <MenuGroup
-                key={group.card.card.title}
-                group={group.card.card}></MenuGroup>
+              <div key={group.card.card.title}>
+                <MenuGroup
+                  key={group.card.card.title}
+                  group={group.card.card}></MenuGroup>
+                <div className="h-3 bg-gray-100"></div>
+              </div>
             );
           }
         })}

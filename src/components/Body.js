@@ -28,7 +28,9 @@ const Body = () => {
     color: "black",
   };
 
-  return listOfRestaurents.length === 0 ? (
+  return listOfRestaurents === undefined ||
+    listOfRestaurents === null ||
+    listOfRestaurents.length === 0 ? (
     <Shimmer />
   ) : (
     <>

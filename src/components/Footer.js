@@ -3,8 +3,11 @@ import { FaInstagramSquare } from "react-icons/fa";
 import { BsTwitter } from "react-icons/bs";
 import { BsYoutube } from "react-icons/bs";
 import { MdCopyright } from "react-icons/md";
+import { useContext } from "react";
+import UserContext from "../utils/UserContext";
 
 const Footer = () => {
+  const { user } = useContext(UserContext);
   return (
     <div className="flex justify-between border-t-2 border-gray-100 bg-gray-100 mt-2">
       <div className="logo-container">
@@ -18,6 +21,9 @@ const Footer = () => {
             <MdCopyright className="h-6 w-6" />
           </li>
           <li>2023 Food Zone</li>
+          <li className="ml-2">
+            Dev: {user.name} - {user.email}
+          </li>
         </ul>
       </div>
 

@@ -13,7 +13,11 @@ const useRestaurants = () => {
   const fetchData = async () => {
     const json = await useFetch(RES_URL);
 
-    const restaurantsList = json?.data?.cards[2]?.data?.data?.cards;
+    const allRestaurantsCard = json?.data?.cards.find(
+      (card) => card.cardType === "seeAllRestaurants"
+    );
+
+    const restaurantsList = allRestaurantsCard?.data?.data?.cards;
 
     setListOfRestaurents(restaurantsList);
     setFilteredRestaurents(restaurantsList);
