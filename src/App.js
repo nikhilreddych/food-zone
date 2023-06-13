@@ -14,7 +14,7 @@ const About = lazy(() => import("./components/About"));
 
 const AppLayout = () => {
   return (
-    <div className="app">
+    <div>
       <Header />
       <Outlet />
       <Footer />
@@ -29,27 +29,31 @@ const routerConfig = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Body />
+        element: <Body />,
       },
       {
         path: "/about",
-        element: <Suspense fallback={<h2>Loading...</h2>}><About /></Suspense>
+        element: (
+          <Suspense fallback={<h2>Loading...</h2>}>
+            <About />
+          </Suspense>
+        ),
       },
       {
         path: "/contact",
-        element: <Contact />
+        element: <Contact />,
       },
       {
         path: "/restaurants/:resId",
-        element: <RestaurantMenu />
+        element: <RestaurantMenu />,
       },
       {
         path: "/instamart",
-        element: <InstaMart /> //ideally this should throw error and not load as not wrapped with Suspense. But it is loading. Strange !! Why?
-      }
+        element: <InstaMart />, //ideally this should throw error and not load as not wrapped with Suspense. But it is loading. Strange !! Why?
+      },
     ],
-    errorElement: <Error />
-  }
+    errorElement: <Error />,
+  },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

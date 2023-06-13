@@ -8,14 +8,21 @@ import useOnline from "../hooks/useOnline";
 const Body = () => {
   const [searchTxt, setSearchTxt] = useState("");
   const [searchCounter, setSearchCounter] = useState(0);
-  const [listOfRestaurents, filteredRestaurents, setFilteredRestaurents] = useRestaurants();
+  const [listOfRestaurents, filteredRestaurents, setFilteredRestaurents] =
+    useRestaurants();
+  const [topRatedBtntxt, setTopRatedBtnTxt] = useState("Top Rated");
+  const [resListLabel, setResListLabel] = useState("Showing All");
 
   const isInternetConnected = useOnline();
 
-  if(!isInternetConnected) {
-    return <h1>Opps...!! Looks like you're offline. Check your internet connection.</h1>
+  if (!isInternetConnected) {
+    return (
+      <h1>
+        Opps...!! Looks like you're offline. Check your internet connection.
+      </h1>
+    );
   }
-  
+
   const linkStyle = {
     textDecoration: "none",
     color: "black",
@@ -25,16 +32,16 @@ const Body = () => {
     <Shimmer />
   ) : (
     <>
-      <div className="search-container">
+      <div className="p-1 m-1">
         <input
           type="text"
-          className="search-bar"
-          placeholder="search"
+          className="p-2 my-1 w-96 shadow-lg border-slate-400 rounded-md focus:bg-lime-50"
+          placeholder="Type here..."
           onChange={(e) => {
             setSearchTxt(e.target.value);
           }}></input>
         <button
-          className="btn"
+          className="rounded-md bg-cyan-700 p-2 ml-2 mr-1 text-white hover:bg-green-700 shadow-lg"
           onClick={() => {
             //setSearchCounter((prev) => prev + 1);
             setSearchCounter(searchCounter + 1);
@@ -50,21 +57,32 @@ const Body = () => {
           Search
         </button>
         <button
-          className="btn"
+          className="rounded-md bg-cyan-700 p-2 ml-1 text-white hover:bg-green-700 shadow-lg"
           onClick={() => {
-            const filteredList = listOfRestaurents.filter((res) => {
-              return res.data.avgRating > 4;
-            });
-            setFilteredRestaurents(filteredList);
+            if (topRatedBtntxt === "Top Rated") {
+              setTopRatedBtnTxt("Show All");
+              const filteredList = listOfRestaurents.filter((res) => {
+                return res.data.avgRating > 4;
+              });
+              setFilteredRestaurents(filteredList);
+              setResListLabel("Showing only top rated");
+            } else {
+              setTopRatedBtnTxt("Top Rated");
+              setFilteredRestaurents(listOfRestaurents);
+              setResListLabel("Showing All");
+            }
           }}>
-          Top Rated
+          {topRatedBtntxt}
         </button>
-        <h3>Search Counter: {searchCounter}</h3>
+        <div className="text-md font-bold py-2">{resListLabel}</div>
       </div>
-      <div className="res-container">
+      <div className="flex flex-wrap">
         {filteredRestaurents.map((resObj) => {
           return (
-            <Link key={resObj.data.id} to={"/restaurants/" + resObj.data.id} style={linkStyle}>
+            <Link
+              key={resObj.data.id}
+              to={"/restaurants/" + resObj.data.id}
+              style={linkStyle}>
               <ResaurentCard resData={resObj} />
             </Link>
           );

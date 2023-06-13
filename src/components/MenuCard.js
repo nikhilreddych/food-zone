@@ -6,25 +6,27 @@ const MenuCard = ({ itemCard }) => {
 
   return (
     <div className="menu-card">
-      <div className="menu-info">
-        <div>
-          <h4>{name}</h4>
-          <p>₹{(price || defaultPrice) / 100}</p>
+      <div className="flex justify-between">
+        <div className="w-5/6">
+          <div className="text-gray-700 font-semibold">{name}</div>
+          <div className="text-sm text-gray-700">
+            ₹{(price || defaultPrice) / 100}
+          </div>
           {"\n"}
-          <p>{description}</p>
+          <div className="text-sm text-gray-400 my-3">{description}</div>
         </div>
         {imageId ? (
-          <div className="item-image">
+          <div className="w-28 h-24 object-cover">
             <img
               alt=""
-              className="item-logo"
+              className="w-28 h-24 object-cover"
               src={ITEM_IMG_URL + imageId}></img>
           </div>
         ) : (
           ""
         )}
       </div>
-      <div className="horizontal-line"></div>
+      <div className="border-[0.5px] border-solid border-gray-200 my-3"></div>
     </div>
   );
 };

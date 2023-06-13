@@ -2,25 +2,25 @@ import { useEffect, useState } from "react";
 import useFetch from "../hooks/useFetch";
 
 const ProfileFunctionalComponent = () => {
-    const [userInfo, setUserInfo] = useState({});
+  const [userInfo, setUserInfo] = useState({});
 
-    useEffect(() => {
-        fetchUser();
+  useEffect(() => {
+    fetchUser();
 
-        const timer = setInterval(() => {
-            console.log("food zone demo from profile");
-        }, 1000);
+    const timer = setInterval(() => {
+      console.log("food zone demo from profile");
+    }, 1000);
 
-        return () => {
-            clearInterval(timer);
-        }
-    }, []);
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
 
-    const fetchUser = async () => {
-        const json = await useFetch("https://api.github.com/users/nikhilreddych");
+  const fetchUser = async () => {
+    const json = await useFetch("https://api.github.com/users/nikhilreddych");
 
-        setUserInfo(json);
-    }
+    setUserInfo(json);
+  };
 
   return (
     <div>
