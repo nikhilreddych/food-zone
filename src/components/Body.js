@@ -33,7 +33,7 @@ const Body = () => {
     listOfRestaurents.length === 0 ? (
     <Shimmer />
   ) : (
-    <>
+    <div className="mb-20">
       <div className="p-1 m-1">
         <input
           type="text"
@@ -90,7 +90,7 @@ const Body = () => {
           );
         })}
       </div>
-    </>
+    </div>
   );
 };
 

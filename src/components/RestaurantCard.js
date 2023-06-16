@@ -30,7 +30,9 @@ const ResaurentCard = (props) => {
       </div>
 
       <div className="font-bold text-lg text-gray-700 py-1">{name}</div>
-      <div className="text-sm text-gray-600">{cuisines.join(", ")}</div>
+      <div className="text-sm text-gray-600 line-clamp-2">
+        {cuisines.join(", ")}
+      </div>
       <div className="flex justify-between pt-3">
         <div className={"flex py-0.5 px-1 " + getRatingBadgeColor(avgRating)}>
           <BsFillStarFill className="fill-white w-3 h-3 mt-0.5" />

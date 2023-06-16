@@ -9,7 +9,7 @@ import UserContext from "../utils/UserContext";
 const Footer = () => {
   const { user } = useContext(UserContext);
   return (
-    <div className="flex justify-between border-t-2 border-gray-100 bg-gray-100 mt-2">
+    <div className="flex justify-between border-t-2 border-gray-100 bg-gray-100 mt-2 bottom-0 fixed w-full">
       <div className="logo-container">
         <img
           className="h-16 p-1 m-1"

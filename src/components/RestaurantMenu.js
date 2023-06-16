@@ -6,12 +6,24 @@ import useRestaurantMenu from "../hooks/useRestaurentMenu";
 import { BsFillStarFill } from "react-icons/bs";
 import { CgSandClock } from "react-icons/cg";
 import { HiOutlineCurrencyRupee } from "react-icons/hi";
+import { updateRestaurantInfo } from "../store/cartSlice";
+import { useDispatch } from "react-redux";
+import { addItem, removeItem, clearCart } from "../store/cartSlice";
+import CartSliceContext from "../utils/CartSliceContext";
+import { useSelector } from "react-redux";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
 
   const [resDetails, filteredMenuGroups, setFilteredMenuGroups] =
     useRestaurantMenu(resId);
+
+  const cartData = useSelector((store) => store.cart);
+
+  const cartItems = cartData.items;
+  const resInfo = cartData.restaurant;
+
+  const dispatch = useDispatch();
 
   if (resDetails === null) {
     return <Shimmer />;
@@ -25,10 +37,54 @@ const RestaurantMenu = () => {
     totalRatingsString,
     costForTwoMessage,
     sla,
+    cloudinaryImageId,
   } = resDetails?.cards[0]?.card?.card?.info;
 
   const menuGroups =
     resDetails?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards;
+
+  let selectedItem = {};
+
+  const handleAddItemClick = (item) => {
+    if (cartItems.length > 0 && resInfo.id !== resId) {
+      const warningDialog = document.getElementById("warningDialog");
+      if (warningDialog) {
+        selectedItem = item;
+        warningDialog.showModal();
+      }
+      return;
+    }
+    if (cartItems.length === 0) {
+      updateResInfo();
+    }
+    dispatch(addItem(item));
+  };
+
+  const updateResInfo = () => {
+    dispatch(
+      updateRestaurantInfo({
+        id: resId,
+        name: name,
+        areaName: areaName,
+        cloudinaryImageId: cloudinaryImageId,
+      })
+    );
+  };
+
+  const handleRemoveItemClick = (id) => {
+    dispatch(removeItem(id));
+  };
+
+  const confirmBtnClick = (e) => {
+    e.preventDefault();
+    dispatch(clearCart());
+    updateResInfo();
+    dispatch(addItem(selectedItem));
+    const warningDialog = document.getElementById("warningDialog");
+    if (warningDialog) {
+      warningDialog.close();
+    }
+  };
 
   const onVegOnlyChange = (checked) => {
     if (checked) {
@@ -108,22 +164,52 @@ const RestaurantMenu = () => {
       </div>
       <div className="border-[1px] border-dashed border-gray-200 my-3"></div>
       <div className="res-menu">
-        {filteredMenuGroups.map((group) => {
-          if (
-            group.card.card.itemCards &&
-            group.card.card.itemCards.length > 0
-          ) {
-            return (
-              <div key={group.card.card.title}>
-                <MenuGroup
-                  key={group.card.card.title}
-                  group={group.card.card}></MenuGroup>
-                <div className="h-3 bg-gray-100"></div>
-              </div>
-            );
-          }
-        })}
+        <CartSliceContext.Provider
+          value={{
+            handleAddItemClick: handleAddItemClick,
+            handleRemoveItemClick: handleRemoveItemClick,
+          }}>
+          {filteredMenuGroups.map((group) => {
+            if (
+              group.card.card.itemCards &&
+              group.card.card.itemCards.length > 0
+            ) {
+              return (
+                <div key={group.card.card.title}>
+                  <MenuGroup
+                    key={group.card.card.title}
+                    group={group.card.card}></MenuGroup>
+                  <div className="h-3 bg-gray-100"></div>
+                </div>
+              );
+            }
+          })}
+        </CartSliceContext.Provider>
       </div>
+      <dialog
+        id="warningDialog"
+        className="h-40 w-2/5 border border-green-300 shadow-lg rounded-md">
+        <form>
+          <p className="font-bold text-lg text-gray-700 text-center">
+            You have items added to cart from different restaurant. Do you want
+            to clear the cart and proceed?
+          </p>
+          <div className="text-center mt-5">
+            <button
+              value="cancel"
+              className="w-40 h-10 border-2 border-green-500 bg-white rounded-sm mx-2"
+              formMethod="dialog">
+              No, Cancel
+            </button>
+            <button
+              id="confirmBtn"
+              className="w-40 h-10 border-2 border-green-500 bg-green-500 text-white rounded-sm mx-2"
+              onClick={(e) => confirmBtnClick(e)}>
+              Yes, Clear
+            </button>
+          </div>
+        </form>
+      </dialog>
     </div>
   );
 };
