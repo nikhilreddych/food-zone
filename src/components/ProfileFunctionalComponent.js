@@ -17,7 +17,7 @@ const ProfileFunctionalComponent = () => {
   }, []);
 
   const fetchUser = async () => {
-    const json = await useFetch("https://api.github.com/users/nikhilreddych");
+    const json = await useFetch("http://localhost:3000/getUserInfo");
 
     setUserInfo(json);
   };

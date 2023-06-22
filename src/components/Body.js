@@ -36,6 +36,7 @@ const Body = () => {
     <div className="mb-20">
       <div className="p-1 m-1">
         <input
+          data-testid="search-input"
           type="text"
           className="p-2 my-1 w-96 shadow-lg border-slate-400 rounded-md focus:bg-lime-50"
           placeholder="Type here..."
@@ -43,6 +44,7 @@ const Body = () => {
             setSearchTxt(e.target.value);
           }}></input>
         <button
+          data-testid="search-btn"
           className="rounded-md bg-cyan-700 p-2 ml-2 mr-1 text-white hover:bg-green-700 shadow-lg"
           onClick={() => {
             //setSearchCounter((prev) => prev + 1);
@@ -59,6 +61,7 @@ const Body = () => {
           Search
         </button>
         <button
+          data-testid="top-rated-btn"
           className="rounded-md bg-cyan-700 p-2 ml-1 text-white hover:bg-green-700 shadow-lg"
           onClick={() => {
             if (topRatedBtntxt === "Top Rated") {
@@ -78,7 +81,7 @@ const Body = () => {
         </button>
         <div className="text-md font-bold py-2">{resListLabel}</div>
       </div>
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap" data-testid="res-list">
         {filteredRestaurents.map((resObj) => {
           return (
             <Link

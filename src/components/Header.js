@@ -12,11 +12,14 @@ const Header = () => {
       <div className="logo-container">
         <Link to="/">
           <img
+            data-testid="header-logo"
             className="h-24 p-2 m-2"
             src={require("/public/images/logo.png")}></img>
         </Link>
       </div>
-      <div className="font-bold text-lg text-gray-500 mt-11">
+      <div
+        data-testid="user-name"
+        className="font-bold text-lg text-gray-500 mt-11">
         Welcome back, {user.name}
       </div>
       <div className="px-2 mx-2">
@@ -36,7 +39,9 @@ const Header = () => {
           <li className="px-3 font-sans text-gray-600 text-xl hover:text-orange-400">
             <Link to="/cart">
               <div className="flex">
-                <div className="border border-black my-1 mr-1 hover:border-orange-400 px-1 text-sm font-bold rounded-sm">
+                <div
+                  data-testid="cart-items"
+                  className="border border-black my-1 mr-1 hover:border-orange-400 px-1 text-sm font-bold rounded-sm">
                   {cartItems.length}
                 </div>
                 <div>Cart</div>
