@@ -125,11 +125,15 @@ const RestaurantMenu = () => {
     <div className="w-4/5 pl-[16.67%] mt-8">
       <div className="flex justify-between">
         <div>
-          <div className="font-bold text-lg">{name}</div>
+          <div className="font-bold text-lg" data-testid="res-name">
+            {name}
+          </div>
           <div className="text-sm text-gray-500 pt-0.5">
             {cuisines.join(", ")}
           </div>
-          <div className="text-sm text-gray-500 pt-0.5">
+          <div
+            className="text-sm text-gray-500 pt-0.5"
+            data-testid="res-detail">
             {areaName}, {sla.lastMileTravelString}
           </div>
         </div>
@@ -163,7 +167,7 @@ const RestaurantMenu = () => {
           onToggleChange={onVegOnlyChange}></ToggleSwitch>
       </div>
       <div className="border-[1px] border-dashed border-gray-200 my-3"></div>
-      <div className="res-menu">
+      <div className="res-menu" data-testid="res-menu">
         <CartSliceContext.Provider
           value={{
             handleAddItemClick: handleAddItemClick,
